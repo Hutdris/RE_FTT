@@ -9,7 +9,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <tchar.h>
-
+#include <algorithm>
 #include <opencv2/opencv.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
