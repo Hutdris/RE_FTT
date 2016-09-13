@@ -8,11 +8,12 @@ using namespace cv;
 
 void stereo_cam_calibrate();
 void load_calibrate_result(Mat &mtx1, Mat &mtx2, Mat &RT1, Mat &RT2, Mat &dist1, Mat &dist2, Mat &fund_mat);
-void chess_calibrate(VideoCapture &capture1, VideoCapture &capture2, Mat &mtx1, Mat &mtx2, Mat &RT1, Mat &RT2, Mat &dist1, Mat &dist2, Mat &fund_mat);
 void simpleBlob_para1_init(SimpleBlobDetector::Params& params);
 inline bool pt_compare_by_x(Point2d p1, Point2d p2) { return p1.x < p2.x;}
 int main(void) {
-
+	
+	VideoCapture cap1(1);
+	VideoCapture cap2(0);
 
 	
 	VideoCapture cap1 = VideoCapture(0);
@@ -22,6 +23,7 @@ int main(void) {
 //Initalization
 	Mat dist1, dist2, mtx1, mtx2, RT1, RT2, fund_mat, test;
 	load_calibrate_result(mtx1, mtx2, RT1, RT2, dist1, dist2, fund_mat);
+	chess_calibrate(cap1, cap2, mtx1, mtx2, RT1, RT2, dist1, dist2, fund_mat);
 	Mat project1 = mtx1*RT1;
 	Mat project2 = mtx2*RT2;
 	Mat raw_src1, raw_src2, frame1, frame2, frame1_with_led, frame2_with_led;
