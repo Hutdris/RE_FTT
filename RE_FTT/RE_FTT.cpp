@@ -5,25 +5,23 @@
 
 using namespace std;
 using namespace cv;
-
+void cin_test(Mat &test) {
+	test = (Mat_<float>(3,1)<< -0.418326, 12.064726, 0.006454, 0.006439, 0.0 );
+}
 void stereo_cam_calibrate();
 void load_calibrate_result(Mat &mtx1, Mat &mtx2, Mat &RT1, Mat &RT2, Mat &dist1, Mat &dist2, Mat &fund_mat);
 void simpleBlob_para1_init(SimpleBlobDetector::Params& params);
 inline bool pt_compare_by_x(Point2d p1, Point2d p2) { return p1.x < p2.x;}
 int main(void) {
 	
-	VideoCapture cap1(1);
-	VideoCapture cap2(0);
-
 	
-	VideoCapture cap1 = VideoCapture(0);
-	VideoCapture cap2 = VideoCapture(1);
+	VideoCapture cap1 = VideoCapture(1);
+	VideoCapture cap2 = VideoCapture(2);
 
 	if (!cap1.isOpened()&!cap2.isOpened()) return -1;
 //Initalization
 	Mat dist1, dist2, mtx1, mtx2, RT1, RT2, fund_mat, test;
 	load_calibrate_result(mtx1, mtx2, RT1, RT2, dist1, dist2, fund_mat);
-	chess_calibrate(cap1, cap2, mtx1, mtx2, RT1, RT2, dist1, dist2, fund_mat);
 	Mat project1 = mtx1*RT1;
 	Mat project2 = mtx2*RT2;
 	Mat raw_src1, raw_src2, frame1, frame2, frame1_with_led, frame2_with_led;
@@ -39,7 +37,6 @@ int main(void) {
 	{
 		cap1 >> raw_src1;
 		cap2 >> raw_src2;
-		CvSize chessboard_size = cvSize(3, 3);
 		cvtColor(raw_src1, frame1, COLOR_RGB2GRAY);
 		cvtColor(raw_src2, frame2, COLOR_RGB2GRAY);
 
@@ -254,8 +251,8 @@ void load_calibrate_result(Mat &mtx1, Mat &mtx2, Mat &RT1, Mat &RT2, Mat &dist1,
 	 0.000000, 2409.743589, 569.840267,
 	 0, 0, 1 )
 	;
-	dist1 = (Mat_<float>(3,1)<< -0.418326, 12.064726, 0.006454, 0.006439, 0.0 );
-	dist2  =(Mat_<float>(3,1)<<  0.013682, -4.051145, 0.005566, 0.004979, 0.0 );
+	dist1 = (Mat_<float>(5,1)<< -0.418326, 12.064726, 0.006454, 0.006439, 0.0 );
+	dist2  =(Mat_<float>(5,1)<<  0.013682, -4.051145, 0.005566, 0.004979, 0.0 );
 	RT1 = (Mat_<float>(3,4)<<1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0);
 	RT2=(Mat_<float>(3,4)<<  0.695238, -0.000966, 0.718779, -236.973392,
 		0.012590, 0.999862, -0.010835, -2.722954,

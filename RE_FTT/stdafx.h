@@ -17,7 +17,6 @@
 #include <opencv2/core.hpp>
 #include "opencv2/calib3d.hpp"
 
-#include <GL\freeglut.h>
 
 #include "opencv2/video/tracking.hpp"
 #include <Windows.h>
