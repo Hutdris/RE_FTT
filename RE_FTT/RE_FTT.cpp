@@ -5,18 +5,14 @@
 
 using namespace std;
 using namespace cv;
-void cin_test(Mat &test) {
-	test = (Mat_<float>(3,1)<< -0.418326, 12.064726, 0.006454, 0.006439, 0.0 );
-}
+
 void stereo_cam_calibrate();
 void load_calibrate_result(Mat &mtx1, Mat &mtx2, Mat &RT1, Mat &RT2, Mat &dist1, Mat &dist2, Mat &fund_mat);
 void simpleBlob_para1_init(SimpleBlobDetector::Params& params);
 inline bool pt_compare_by_x(Point2d p1, Point2d p2) { return p1.x < p2.x;}
 int main(void) {
-	
-	
-	VideoCapture cap1 = VideoCapture(1);
-	VideoCapture cap2 = VideoCapture(2);
+	VideoCapture cap1 = VideoCapture(0);
+	VideoCapture cap2 = VideoCapture(1);
 
 	if (!cap1.isOpened()&!cap2.isOpened()) return -1;
 //Initalization
